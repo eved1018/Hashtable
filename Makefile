@@ -6,7 +6,7 @@ CFLAGS = -g -Wall -Wextra -pedantic -std=c11 -Wfloat-equal -Wswitch-default -Wsw
 SRCDIR = .
 OBJDIR = build
 BINDIR = bin
-HDRDIR = include/
+HDRDIR = include
 
 CFLAGS += -I$(HDRDIR)
 
@@ -19,8 +19,11 @@ OBJECTS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
 # Define the executable name (you can change this)
 EXECUTABLE = $(BINDIR)/hashtable
 
+
 # Default target: build the executable
-all: $(EXECUTABLE)
+all: bear
+
+build: $(EXECUTABLE)
 
 # Rule to create the binary directory if it doesn't exist
 $(BINDIR):
@@ -45,5 +48,7 @@ clean:
 run:
 	./$(EXECUTABLE) $(ARGS)
 
-gdb: $(EXECUTABLE)
-	gdb -tui -ex "directory $(SRCDIR)" -ex "break main" -ex "run" $(EXECUTABLE)
+# Target to run bear for generating compile_commands.json
+bear:
+	bear -- make build
+	@mv compile_commands.json $(OBJDIR)

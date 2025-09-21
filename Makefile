@@ -6,7 +6,7 @@ CFLAGS = -g -Wall -Wextra -pedantic -std=c11 -Wfloat-equal -Wswitch-default -Wsw
 SRCDIR = .
 OBJDIR = build
 BINDIR = bin
-HDRDIR = .
+HDRDIR = include/
 
 CFLAGS += -I$(HDRDIR)
 
